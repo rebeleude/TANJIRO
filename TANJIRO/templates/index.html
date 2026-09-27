@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TANJIRO // DIGITAL SYSTEM</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #ff1744;
+            --red2: #ff003c;
+            --dark: #030305;
+            --glass: rgba(255,255,255,0.035);
+            --border: rgba(255, 23, 68, 0.25);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* GRID FUTURISTA */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 55px 55px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* BRILHO CENTRAL */
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            left: 50%;
+            top: 35%;
+            transform: translate(-50%, -50%);
+            background: var(--red);
+            filter: blur(220px);
+            opacity: 0.08;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -3;
+        }
+
+        /* HEADER */
+
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            width: 90%;
+            max-width: 1200px;
+
+            padding: 18px 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(10,10,13,0.65);
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+
+            z-index: 100;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 7px;
+
+            color: white;
+
+            text-shadow:
+                0 0 10px rgba(255,23,68,0.7),
+                0 0 30px rgba(255,23,68,0.3);
+        }
+
+        .logo span {
+            color: var(--red);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+
+            padding: 10px 16px;
+
+            font-size: 13px;
+            letter-spacing: 1px;
+
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+            background: rgba(255,23,68,0.1);
+            box-shadow: inset 0 0 20px rgba(255,23,68,0.08);
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+
+            padding: 150px 20px 80px;
+
+            overflow: hidden;
+        }
+
+        /* LINHAS DECORATIVAS */
+
+        .linha {
+            position: absolute;
+
+            width: 220px;
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--red),
+                transparent
+            );
+
+            opacity: 0.5;
+        }
+
+        .linha1 {
+            top: 30%;
+            left: -40px;
+            transform: rotate(-25deg);
+        }
+
+        .linha2 {
+            top: 55%;
+            right: -40px;
+            transform: rotate(25deg);
+        }
+
+        /* ELEMENTO CENTRAL */
+
+        .nucleo {
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border: 1px solid rgba(255,23,68,0.15);
+
+            border-radius: 50%;
+
+            animation: girar 18s linear infinite;
+
+            box-shadow:
+                0 0 50px rgba(255,0,60,0.08),
+                inset 0 0 50px rgba(255,0,60,0.05);
+        }
+
+        .nucleo::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 30px;
+
+            border: 1px dashed rgba(255,23,68,0.3);
+
+            border-radius: 50%;
+        }
+
+        .nucleo::after {
+            content: "";
+
+            position: absolute;
+
+            width: 8px;
+            height: 8px;
+
+            background: var(--red);
+
+            border-radius: 50%;
+
+            top: -4px;
+            left: 50%;
+
+            box-shadow:
+                0 0 15px var(--red),
+                0 0 40px var(--red);
+        }
+
+        @keyframes girar {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* CONTEÚDO */
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .tag {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border: 1px solid rgba(255,23,68,0.3);
+
+            background: rgba(255,23,68,0.05);
+
+            color: #ff6685;
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 25px;
+
+            border-radius: 4px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 10vw, 130px);
+
+            line-height: 0.9;
+
+            letter-spacing: 10px;
+
+            font-weight: 900;
+
+            text-transform: uppercase;
+
+            margin-bottom: 35px;
+
+            text-shadow:
+                0 0 30px rgba(255,255,255,0.08);
+        }
+
+        .hero h1 span {
+            color: transparent;
+
+            -webkit-text-stroke: 1px var(--red);
+
+            text-shadow:
+                0 0 20px rgba(255,23,68,0.35);
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #8e8e96;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+        }
+
+        /* BOTÃO */
+
+        .botao {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 40px;
+
+            padding: 17px 27px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            letter-spacing: 1px;
+
+            background: rgba(255,23,68,0.04);
+
+            border: 1px solid rgba(255,23,68,0.5);
+
+            border-radius: 5px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: 0.3s;
+        }
+
+        .botao::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 100%;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,23,68,0.25),
+                transparent
+            );
+
+            transition: 0.5s;
+        }
+
+        .botao:hover::before {
+            left: 100%;
+        }
+
+        .botao:hover {
+            transform: translateY(-3px);
+
+            border-color: var(--red);
+
+            box-shadow:
+                0 0 20px rgba(255,23,68,0.2),
+                inset 0 0 20px rgba(255,23,68,0.05);
+        }
+
+        /* SERVIÇOS */
+
+        .servicos {
+            padding: 100px 7% 130px;
+
+            max-width: 1300px;
+
+            margin: auto;
+        }
+
+        .titulo-secao {
+            margin-bottom: 50px;
+        }
+
+        .mini {
+            color: var(--red);
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 12px;
+        }
+
+        .titulo-secao h2 {
+            font-size: 45px;
+
+            letter-spacing: 2px;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+
+            padding: 35px;
+
+            min-height: 230px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.05),
+                    rgba(255,255,255,0.01)
+                );
+
+            backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            transition: 0.4s;
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+            height: 2px;
+
+            top: 0;
+            left: 0;
+
+            background: var(--red);
+
+            box-shadow: 0 0 15px var(--red);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+
+            border-color: rgba(255,23,68,0.35);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.5),
+                0 0 30px rgba(255,23,68,0.06);
+        }
+
+        .numero {
+            font-size: 12px;
+
+            color: #555;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 35px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #777;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 35px 7%;
+
+            border-top: 1px solid rgba(255,255,255,0.05);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #555;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 700px) {
+
+            header {
+                width: 94%;
+            }
+
+            nav a {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            .hero h1 {
+                letter-spacing: 5px;
+            }
+
+            .nucleo {
+                width: 190px;
+                height: 190px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            TANJIRO<span>.</span>
+        </div>
+
+        <nav>
+            <a href="/">INÍCIO</a>
+            <a href="/empresa">EMPRESA</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="linha linha1"></div>
+            <div class="linha linha2"></div>
+
+            <div class="nucleo"></div>
+
+            <div class="hero-content">
+
+                <div class="tag">
+                    TANJIRO // DIGITAL CREATIVE SYSTEM
+                </div>
+
+                <h1>
+                    SUA MARCA.
+                    <br>
+                    <span>SEU ESPAÇO.</span>
+                </h1>
+
+                <p>
+                    Criamos experiências digitais modernas para
+                    transformar marcas em presença.
+                </p>
+
+                <a href="/empresa" class="botao">
+                    CONHEÇA A TANJIRO
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <section class="servicos">
+
+            <div class="titulo-secao">
+
+                <div class="mini">
+                    // NOSSAS SOLUÇÕES
+                </div>
+
+                <h2>
+                    Construímos o digital.
+                </h2>
+
+            </div>
+
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div class="numero">
+                        01 / WEB
+                    </div>
+
+                    <h3>
+                        Sites
+                    </h3>
+
+                    <p>
+                        Desenvolvemos sites modernos,
+                        rápidos e pensados para destacar
+                        sua marca.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="numero">
+                        02 / DESIGN
+                    </div>
+
+                    <h3>
+                        Design
+                    </h3>
+
+                    <p>
+                        Criamos experiências visuais
+                        que tornam sua presença digital
+                        memorável.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="numero">
+                        03 / DIGITAL
+                    </div>
+
+                    <h3>
+                        Presença digital
+                    </h3>
+
+                    <p>
+                        Ajudamos empresas a construir
+                        uma identidade forte no mundo
+                        digital.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <span>
+            TANJIRO © 2026
+        </span>
+
+        <span>
+            DIGITAL CREATIVE STUDIO
+        </span>
+
+    </footer>
+
+</body>
+
+</html>
